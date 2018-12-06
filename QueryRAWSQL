@@ -1,0 +1,16 @@
+sqlite3 Project3DB.sqlite
+
+#Count the number of rows in the GuestInfo table
+SELECT COUNT(*) FROM GuestInfo;
+
+#Count the number of tables in the StaffInfo table
+SELECT COUNT(*) FROM StaffInfo;
+
+#Make the output more user friendly by formatting with
+#columns and using headers
+.mode column
+.headers on
+
+### Code using SELECT, WHERE, JOIN
+#Query for adoptable pit bull dogs and what their impound number is
+SELECT Impound_No, Animal_Breed, Record_Type FROM StaffInfo JOIN GuestInfo ON Animal_ID=Animal_IDg WHERE Record_Type = 'ADOPTABLE' AND Animal_Breed = 'Pit Bull' ;
