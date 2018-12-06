@@ -46,3 +46,43 @@ except:
 
 #Creation of tables within the database
 metadata.create_all(engine)
+
+#check that both tables were created
+for t in metadata.sorted_tables:
+        print(t.name)
+
+#Open the data and connect to the data
+csvdata = open("./Lost__found__adoptable_pets_no_duplicate_IDs.csv")
+conn = engine.connect()
+
+#Insert the data from the original data file into the new tables in the database in the correct columns
+reader= csv.DictReader(csvdata)
+for Line in reader:
+
+        ins=StaffInfo.insert().values(Impound_No=Line['impound_no'],
+                                        Animal_ID=Line['Animal_ID'],
+                                        Address=Line['Obfuscated_Address'],
+                                        City=Line['City'],
+                                        State=Line['State'],
+                                        Zip_Code=Line['Zip'],
+                                        Jurisdiction=Line['jurisdiction'],
+                                        Latitude=Line['obfuscated_latitude'],
+                                        Longitude=Line['obfuscated_longitude'],
+                                        Memo=Line['Memo']
+                                        )
+        ins2=GuestInfo.insert().values(Animal_IDg=Line['Animal_ID'],
+                                        Record_Type=Line['Record_Type'],
+                                        Link=Line['Link'],
+                                        Current_Location=Line['Current_Location'],
+                                        Animal_Name=Line['Animal_Name'],
+                                        Animal_Type=Line['animal_type'],
+                                        Age=Line['Age'],
+                                        Animal_Gender=Line['Animal_Gender'],
+                                        Animal_Breed=Line['Animal_Breed'],
+                                        Animal_Color=Line['Animal_Color'],
+                                        Image=Line['Image'],
+                                        Temperament=Line['Temperament']
+                                       )
+
+        result = conn.execute(ins)
+        result2 = conn.execute(ins2)
