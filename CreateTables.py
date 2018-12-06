@@ -3,7 +3,7 @@ import csv
 import pandas as pd
 
 #Opening/Reading of CSV data, creation of engine, and extraction of metadata
-csvdata = open("./Lost__found__adoptable_pets_no_duplicate_IDs.csv")
+csvdata = open("/ufrc/zoo6927/share/fifield/Lost__found__adoptable_pets_no_duplicate_IDs.csv")
 reader = csv.DictReader(csvdata)
 engine = create_engine('sqlite:///./Project3DB.sqlite')
 metadata = MetaData(engine)
@@ -52,7 +52,7 @@ for t in metadata.sorted_tables:
         print(t.name)
 
 #Open the data and connect to the data
-csvdata = open("./Lost__found__adoptable_pets_no_duplicate_IDs.csv")
+csvdata = open("ufrc/zoo6927/share/fifield/Lost__found__adoptable_pets_no_duplicate_IDs.csv")
 conn = engine.connect()
 
 #Insert the data from the original data file into the new tables in the database in the correct columns
